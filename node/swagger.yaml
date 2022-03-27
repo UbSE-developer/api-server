@@ -3,7 +3,7 @@ tags:
   description: test
 
 paths:
-  /test/test:
+  /user:
     get:
       tags:
       - test
@@ -13,13 +13,15 @@ paths:
         in: body
         description: test
         schema:
-          $ref: '#/definitions/test'
+          $ref: '#/definitions/user'
       responses:
         200:
           description: 'Success'
         500:
           description: 'Server Error'
-  test:
+# definitions
+definitions:
+  user:
     type: object
     properties:
       test:
