@@ -1,0 +1,30 @@
+tags:
+- name: test
+  description: test
+
+paths:
+  /test/test:
+    get:
+      tags:
+      - test
+      summary: test
+      parameters:
+      - name: body
+        in: body
+        description: test
+        schema:
+          $ref: '#/definitions/test'
+      responses:
+        200:
+          description: 'Success'
+        500:
+          description: 'Server Error'
+  test:
+    type: object
+    properties:
+      test:
+        type: "string"
+        description: "test"
+schemes:
+ - https
+ - http
