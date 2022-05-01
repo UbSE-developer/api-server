@@ -8,12 +8,6 @@ paths:
       tags:
       - test
       summary: test
-      parameters:
-      - name: body
-        in: body
-        description: test
-        schema:
-          $ref: '#/definitions/user'
       responses:
         200:
           description: 'Success'
