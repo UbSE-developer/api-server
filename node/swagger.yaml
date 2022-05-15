@@ -1,13 +1,35 @@
 tags:
-- name: test
-  description: test
+- name: user
+  description: user API
 
 paths:
   /user:
-    get:
+    post:
       tags:
-      - test
-      summary: test
+      - user
+      summary: user
+      parameters:
+      - name: body
+        in: body
+        description: test
+        schema:
+          $ref: '#/definitions/user'
+      responses:
+        200:
+          description: 'Success'
+        500:
+          description: 'Server Error'
+  /user/signup:
+    post:
+      tags:
+      - user
+      summary: 회원가입 API
+      parameters:
+      - name: body
+        in: body
+        description: 회원가입시 필요한 데이터 정보
+        schema:
+          $ref: '#/definitions/signup'
       responses:
         200:
           description: 'Success'
@@ -21,6 +43,21 @@ definitions:
       test:
         type: "string"
         description: "test"
+  signup:
+    type: object
+    properties:
+      name:
+        type: "string"
+        description: "user's Name Attr"
+      password:
+        type: "string"
+        description: "user's Password Data Attr"
+      user_id:
+        type: "string"
+        description: "user's ID"
+      user_auth:
+        type: "string"
+        description: "user's auth data -> E-mail or PhoneNumber"
 schemes:
  - https
  - http
