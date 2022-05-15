@@ -12,11 +12,11 @@ const CREATE_USER_TB = 'CREATE TABLE INS_USER ( \
                         password      VARCHAR(250) NOT NULL, \
                         user_id       VARCHAR(20) NOT NULL, \
                         introduction  VARCHAR(250), \
-                        email         VARCHAR(50) NOT NULL, \
-                        phone_no      VARCHAR(20) NOT NULL, \
-                        sex           VARCHAR(1) NOT NULL, \
-                        salt          VARCHAR(100) NOT NULL, \
+                        user_auth     VARCHAR(50) NOT NULL, \
+                        sex           VARCHAR(1), \
+                        salt          VARCHAR(500) NOT NULL, \
                         image         VARCHAR(50), \
+                        state         INT(1) NOT NULL, \
                         PRIMARY KEY(user_id));';
 
 const CREATE_BOARD_TB = 'CREATE TABLE INS_BOARD ( \
