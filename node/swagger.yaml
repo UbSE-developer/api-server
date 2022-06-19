@@ -3,22 +3,21 @@ tags:
   description: user API
 
 paths:
-  /user:
-    post:
+  /user/info/{userId}:
+    get:
       tags:
       - user
-      summary: user
+      summary: 회원정보 조회
       parameters:
-      - name: body
-        in: body
-        description: test
-        schema:
-          $ref: '#/definitions/user'
+      - name: userId
+        in: path
+        description: 유저의 아이디
+        type: string
       responses:
         200:
           description: 'Success'
-        500:
-          description: 'Server Error'
+        400:
+          description: 'No Data'
   /user/signup:
     post:
       tags:
@@ -35,6 +34,47 @@ paths:
           description: 'Success'
         500:
           description: 'Server Error'
+  /user/signin:
+    post:
+      tags:
+      - user
+      summary: 유저 로그인 API
+      parameters:
+      - name: body
+        in: body
+        description: 회원가입시 필요한 데이터 정보
+        schema:
+          $ref: '#/definitions/signin'
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Mandatory Error'
+        401:
+          description: 'Login Error'
+  /user/profile-image/update:
+    post:
+      tags:
+      - user
+      summary: 유저 이미지 변경
+      parameters:
+      - name: profile
+        in: formData
+        description: image에 들어갈 다수 파일
+        type: file
+      - name: user_id
+        in: formData
+        type: string
+        description: 이미지를 변경할 user id 정보
+      consumes:
+      - multipart/form-data
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Mandatory Error'
+        401:
+          description: 'Login Error'
 # definitions
 definitions:
   user:
@@ -58,6 +98,15 @@ definitions:
       user_auth:
         type: "string"
         description: "user's auth data -> E-mail or PhoneNumber"
+  signin:
+    type: object
+    properties:
+      user_id:
+        type: "string"
+        description: "user's ID"
+      password:
+        type: "string"
+        description: "user's Password Data Attr"
 schemes:
  - https
  - http

@@ -2,20 +2,27 @@ import path from 'path';
 import fs from 'fs';
 import fileMng from 'multer';
 
-const storage = fileMng.diskStorage({
-    destination: (req, file, cb) => {  // 파일이 업로드될 경로 설정
-		cb(null, 'uploads/')
-	},
-	filename: (req, file, cb) => {	// timestamp를 이용해 새로운 파일명 설정
-		let newFileName = new Date().valueOf() + path.extname(file.originalname)
-		cb(null, newFileName)
-	},
+export const UploadFile = fileMng({
+	storage: fileMng.diskStorage({
+			destination: function(req, file, cb) {
+					cb(null, 'uploads/');
+			},
+			filename: function(req, file, cb) {
+					cb(null, new Date().valueOf() + '-' + file.originalname);
+			},
+	}),
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    if (ext !== ".jpeg" || ".png" || ".jpg") {
+      return cb(null, true);
+    }
+    cb(null, false);
+  },
+	limits: { fileSize: 20 * 1024 * 1024 },
 });
 
-const uploadMng = fileMng({ storage: storage })
-
 export const fileRemove = (filePath: string) => {
-    fs.rmSync(filePath, {recursive: true, force: true});
+  if (fs.existsSync(filePath)) {
+		fs.rmSync(filePath, {recursive: true, force: true});
+	}
 };
-
-export default uploadMng;

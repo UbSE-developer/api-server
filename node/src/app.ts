@@ -21,6 +21,7 @@ const options: cors.CorsOptions = {
     credentials: true,
     methods: 'GET,POST',
     origin: DEFAULT_URL,
+    
     preflightContinue: false,
 };
 
@@ -43,9 +44,10 @@ const app = express();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use(bodyParser.json());
-app.use(cors(options));
-app.use('/v1', RootRouter);
+app.use(cors());
+// app.use(cors(options));
 
+app.use('/v1', RootRouter);
 
 app.listen(port, async () => {
     console.log('Server Start');
